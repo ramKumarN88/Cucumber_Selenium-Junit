@@ -1,0 +1,118 @@
+package Stepdefinitions;
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+import cucumber.api.java.After;
+import cucumber.api.java.Before;
+import cucumber.api.java.en.And;
+import cucumber.api.java.en.Given;
+import cucumber.api.java.en.Then;
+import cucumber.api.java.en.When;
+import junit.framework.Assert;
+
+
+public class LoginSteps {
+
+	WebdDriver driver;
+    // Use Cucumber to bind the Feature file to Java code
+	// Glue code - step definitions - step implementation
+	
+	@Before
+	public void setup()
+	{
+		System.setProperty("webdriver.chrome.driver", "E:\\Selenium Eclipse Workspace\\Wikipedia\\chromedriver.exe");
+		driver = new ChromeDriver();
+		
+	}
+	
+	@After
+	public void tearDown()
+	{
+		driver.quit();
+		
+	}
+	
+	// Given the user is on the login page
+	@Given("the user is on the login page")
+	public void user_on_login_age()
+	{
+		System.out.println("Step 1: User is on the Login page");
+		
+		System.setProperty("webdriver.chrome.driver", "E:\\Selenium Eclipse Workspace\\Wikipedia\\chromedriver.exe");
+	
+	driver.get("https://login.aol.com/");
+	
+	}
+	
+	@When("the user enters valid credentials")
+	public void user_enters_valid_credentials()
+	{
+		System.out.println("Step 2: User enters valid credentials");	
+		driver.findElement(By.id("")).sendKeys("tiger@aol.com");
+		//driver.findElement(By.id("")).sendKeys("");
+		driver.findElement(By.id("")).click();
+	}
+	
+	@Then("the user should be able to view account balance")
+	public void user_should_see_account_balance()
+	{
+		System.out.println("Step 3: User sees account balance");
+		//String expected = "Balance";
+		//String actual = "No balance";
+		
+		//Assert.assertEquals(expected, actual);
+	 String bodyText = driver.findElement(By.xpath("html/body")).getText();
+	 String welcomeMessage = "Logged in successfully";
+	 Assert.assertEquals(bodyText.contains(welcomeMessage);
+	
+	
+	}
+	
+	@When("the user enters bad credentials")
+	public void user_enters_bad_credentials()
+	{
+		System.out.println("Step 2: User enters bad credentials");	
+		driver.findElement(By.id("")).sendKeys("tiger@aol.com");
+		//driver.findElement(By.id("")).sendKeys("");
+		driver.findElement(By.id("")).click();
+	}
+	
+	@Then("the user should be able to login")
+	public void user_should_see_account_balance()
+	{
+		System.out.println("Step 3: User sees account balance");
+		//String expected = "Balance";
+		//String actual = "No balance";
+		
+		//Assert.assertEquals(expected, actual);
+	 String bodyText = driver.findElement(By.xpath("html/body")).getText();
+	 String welcomeMessage = "Logged in successfully";
+	 Assert.assertEquals(bodyText.contains(welcomeMessage);
+	
+	
+	}
+	
+	@And("The user should get an invalid message")
+	public void user_gets_invalid_message()
+	{
+		String bodyText = driver.findElement(By.xpath("html/body")).getText();
+		String message = "Invalid user name";
+		Assert.assertTrue(bodyText.contains(message));
+	}
+	
+	@When("^user enters username as \"(.*)\"$")
+	public void enter_username(String username)
+	{
+		driver.findElements(By.id("MainContent_txtUserName")).sendKeys(username);
+	}
+	
+	@And("^user enters username as \"(.*)\"$")
+	public void enter_username(String password)
+	{
+		driver.findElements(By.id("MainContent_txtPassword")).sendKeys(password);
+	}
+	
+}
+
+
