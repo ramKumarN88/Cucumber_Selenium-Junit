@@ -1,0 +1,21 @@
+@endtoend
+Feature: The Login page
+As a returning customer
+I want to login to the application
+So that I can view my account balance
+
+Background:
+Given: The user is on the login page
+
+@goodlogin
+Scenario: The user should be able to login with valid credentials
+Given: The user is on the Login page
+When: The user enters valid credentials
+Then: The user should be able to view account balance
+
+Scenario: The user should not be able to login with bad credentials
+Given: The user is on the login page
+When: The user enters bad credentials
+Then: The user should not be able to login
+And: The user should get an invalid login message
+
