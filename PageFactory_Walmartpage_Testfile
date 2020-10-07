@@ -1,0 +1,90 @@
+package Stepdefinitions;
+
+import cucumber.api.java.en.And;
+
+import cucumber.api.java.en.Given;
+import cucumber.api.java.en.Then;
+import cucumber.api.java.en.When;
+import pagefactory.HomePage_walmart; 
+import pagefactory.LoginPage_walmart;
+
+import java.util.concurrent.TimeUnit;
+
+//import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+//import org.openqa.selenium.firefox.FirefoxDriver;
+
+public class LoginDemoSteps_walmart {
+
+	WebDriver driver = null;
+	LoginPage_walmart login;
+	HomePage_walmart home;
+
+	@Given("firebrowser is open login1")
+	public void firebrowser_is_open_login1() 
+	{
+		System.out.println(" === I am inside LoginDemoSteps_PF class =====");
+		String projectPath = System.getProperty("user.dir");
+		System.out.println("Project Path is :" + projectPath);
+
+		System.out.println("Inside Step - broswer is open");
+		System.setProperty("webdriver.chrome.driver","E:/Selenium Eclipse Workspace/CucumberJava/src/main/resources/Driver/ChromeDriver.exe");
+		driver = new ChromeDriver();
+		
+		//driver = new FirefoxDriver();
+		/*
+		 * if (browser.equals("Firefox")) { driver = new FirefoxDriver(); } else if
+		 * (browser.equals("Chrome")) { driver = new ChromeDriver(); }
+		 */
+		driver.manage().timeouts().implicitlyWait(40, TimeUnit.SECONDS);
+		driver.manage().timeouts().pageLoadTimeout(40, TimeUnit.SECONDS);
+
+		// driver.manage().window().maximize();
+	}
+
+	@And("welcomeuser is on login page1")
+	public void welcomeuser_is_on_login_page1() {
+		
+		driver.navigate().to("https://www.walmartrewardsmc.ca/?product=DUOBANK");
+		
+		//driver.navigate().to("https://example.testproject.io/web/");
+	}
+
+	@When("^welcomeuser enters (.*) and (.*)$")
+	public void welcomeuser_enters_username_and_passwords(String username, String password) throws InterruptedException 
+	{
+		login  = new LoginPage_walmart(driver);
+		
+        login.enterUsername(username); 
+        login.enterPassword(password);
+        
+		
+		//driver.findElement(By.id("name")).sendKeys(username);
+		//driver.findElement(By.id("password")).sendKeys(passwords);
+
+		Thread.sleep(2000);
+	}
+
+	@And("welcomeuser clicks on login1")
+	public void welcomeuser_clicks_on_login1() 
+	{
+	
+		login.clickOnLogin(null);
+		//driver.findElement(By.id("login")).click();
+
+	}
+
+	@Then("welcomeuser is navigated to the home page1")
+	public void welcomeuser_is_naviagted_to_the_home_page1() throws InterruptedException 
+	{
+	
+		home.checkLogoutsDisplayed();
+		//driver.findElement(By.id("logout")).isDisplayed();
+
+		Thread.sleep(2000);
+
+		driver.close();
+		driver.quit();
+	}
+}
